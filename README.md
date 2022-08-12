@@ -1,6 +1,6 @@
 # High level wrapper for standarscaling
 Light wrapper for easier standardscaling when using PyTorch  
-Scaler expects data to be in shape (n_samples, timesteps, n_features) and expects you to want the scaling to be done in like this:
+Scaler expects data to be in shape (n_samples, timesteps, n_features) and expects you to want the scaling to be done like this:
 
 ```python
 data = data.reshape(-1, n_features)
