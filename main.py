@@ -57,72 +57,16 @@ class TestDataset(Dataset):
 
 
 if __name__ == '__main__':   
-    """scaler = StandardScaler()
-    data = torch.randn(128, 128, 5).reshape(-1, 5)
-    scaler.partial_fit(data)
-    
-    temp = scaler.transform(data)
-    print(temp[0])
-
-    ts = TorchScaler()
-    ts.parital_fit(data)
-    data = ts.transform(data)
-    print(data[0])"""
-    """   
-    ts = TorchScaler()
     dataset = TestDataset()
     batch_size = 32
     train_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size)
 
-    ts.fit_from_loader(train_loader)
-
-     
-    print(ts.scaler.mean_)
-    print(ts.scaler.var_)
-
-    scaler = StandardScaler()
-    for data in train_loader:
-        data = data.reshape(-1, 5)
-        scaler.partial_fit(data)
-    """
-    # ts.save("lol.p")
-    #ts = TorchScaler("lol.p")
-    #print(ts.scaler.mean_)
-
-
-    """
-    
+    # Fit scaler
     ts = TorchScaler()
     ts.fit_from_loader(train_loader)
     ts.save("my_scaler.pickle")
 
+    # Load scaler
     ts = TorchScaler("my_scaler.pickle")
+    data = torch.randn(1, 128, 5)
     data = ts.transform(data)
-
-    """
-
-
-
-    ts = TorchScaler()
-    dataset = TestDataset()
-    batch_size = 32
-    train_loader = torch.utils.data.DataLoader(dataset, batch_size=batch_size)
-
-    for data in train_loader:
-        data = data.to("cuda")
-
-
-    ts = TorchScaler("lol.p")
-    before = time.time()
-    for data in train_loader:
-        data = data.to("cuda")
-        data = ts.transform(data)
-    print(time.time() - before)
-
-    before = time.time()
-    for data in train_loader:
-        data = data.to("cuda")
-    print(time.time() - before)
-
-
-
