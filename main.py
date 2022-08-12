@@ -18,9 +18,8 @@ class TorchScaler:
         self.scaler.partial_fit(data)
     
     def transform(self, data):
-        data = self._reshape_data(data)
-        data -= torch.tensor(self.scaler.mean_).to("cuda")
-        data /= torch.tensor(self.scaler.var_).to("cuda")
+        data -= torch.tensor(self.scaler.mean_)
+        data /= torch.tensor(self.scaler.var_)
         return data
 
     def _reshape_data(self, data):
