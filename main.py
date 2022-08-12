@@ -27,8 +27,8 @@ class TorchScaler:
         return data.reshape(-1, data.shape[-1])
 
     def fit_from_loader(self, dataloader: DataLoader):
-        for data in dataloader:
-            self.parital_fit(data)
+        for out in dataloader:
+            self.parital_fit(out[0])
     
     def save(self, path):
         joblib.dump(self.scaler, path) 
