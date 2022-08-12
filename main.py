@@ -6,6 +6,7 @@ from torch.utils.data import Dataset, DataLoader
 
 class TorchScaler:
     def __init__(self, path=None):
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.mean = None
         self.var = None
         if path:
@@ -18,8 +19,8 @@ class TorchScaler:
         self.scaler.partial_fit(data)
     
     def transform(self, data):
-        data -= torch.tensor(self.scaler.mean_)
-        data /= torch.tensor(self.scaler.var_)
+        data -= torch.tensor(self.scaler.mean_).to(self.device)
+        data /= torch.tensor(self.scaler.var_).to(self.device)
         return data
 
     def _reshape_data(self, data):
